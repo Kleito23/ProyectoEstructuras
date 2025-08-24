@@ -1,0 +1,42 @@
+[
+  {
+    "codigo": "PKX",
+    "nombre": "Beijing Daxing International Airport",
+    "ciudad": "Beijing",
+    "pais": "China",
+    "latitud": 39.5098,
+    "longitud": 116.4109
+  },
+  {
+    "codigo": "LHR",
+    "nombre": "London Heathrow Airport",
+    "ciudad": "Londres",
+    "pais": "Reino Unido",
+    "latitud": 51.4700,
+    "longitud": -0.4543
+  },
+  {
+    "codigo": "JFK",
+    "nombre": "John F. Kennedy International Airport",
+    "ciudad": "Nueva York",
+    "pais": "Estados Unidos",
+    "latitud": 40.6413,
+    "longitud": -73.7781
+  },
+  {
+    "codigo": "BOG",
+    "nombre": "El Dorado International Airport",
+    "ciudad": "Bogotá",
+    "pais": "Colombia",
+    "latitud": 4.7016,
+    "longitud": -74.1469
+  },
+  {
+    "codigo": "SYD",
+    "nombre": "Sydney Kingsford Smith Airport",
+    "ciudad": "Sídney",
+    "pais": "Australia",
+    "latitud": -33.9399,
+    "longitud": 151.1753
+  }
+]
