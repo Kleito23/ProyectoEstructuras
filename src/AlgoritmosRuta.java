@@ -11,7 +11,7 @@ public class AlgoritmosRuta {
         predecesor.clear(); // limpiar predecesores antes de ejecutar
         
         // Inicializar distancias con infinito
-        for (Aeropuerto a : grafo.adyacencia.keySet()) {
+        for (Aeropuerto a : grafo.getAdyacencia().keySet()) {
             distancias.put(a, Double.MAX_VALUE);
         }
         distancias.put(origen, 0.0);
@@ -24,8 +24,8 @@ public class AlgoritmosRuta {
             Aeropuerto actual = cola.poll();
 
             for (Vuelo vuelo : grafo.obtenerAdyacentes(actual)) {
-                Aeropuerto vecino = vuelo.destino;
-                double nuevaDist = distancias.get(actual) + vuelo.peso;
+                Aeropuerto vecino = vuelo.getDestino();
+                double nuevaDist = distancias.get(actual) + vuelo.getDistancia();
 
                 if (nuevaDist < distancias.get(vecino)) {
                     distancias.put(vecino, nuevaDist);
@@ -64,7 +64,7 @@ public class AlgoritmosRuta {
             if (!visitados.contains(actual)) {
                 visitados.add(actual);
                 for (Vuelo vuelo : grafo.obtenerAdyacentes(actual)) {
-                    cola.add(vuelo.destino);
+                    cola.add(vuelo.getDestino());
                 }
             }
         }
@@ -77,8 +77,8 @@ public class AlgoritmosRuta {
     public static void dfs(Grafo grafo, Aeropuerto origen, Set<Aeropuerto> visitados) {
         visitados.add(origen);
         for (Vuelo vuelo : grafo.obtenerAdyacentes(origen)) {
-            if (!visitados.contains(vuelo.destino)) {
-                dfs(grafo, vuelo.destino, visitados);
+            if (!visitados.contains(vuelo.getDestino())) {
+                dfs(grafo, vuelo.getDestino(), visitados);
             }
         }
     }
@@ -88,7 +88,7 @@ public class AlgoritmosRuta {
      */
     public static Map<Aeropuerto, Integer> conexionesPorAeropuerto(Grafo grafo) {
         Map<Aeropuerto, Integer> conexiones = new HashMap<>();
-        for (Aeropuerto a : grafo.adyacencia.keySet()) {
+        for (Aeropuerto a : grafo.getAdyacencia().keySet()) {
             conexiones.put(a, grafo.obtenerAdyacentes(a).size());
         }
         return conexiones;
@@ -100,7 +100,7 @@ public class AlgoritmosRuta {
     public static Aeropuerto masConectado(Grafo grafo) {
         Aeropuerto mejor = null;
         int max = -1;
-        for (Aeropuerto a : grafo.adyacencia.keySet()) {
+        for (Aeropuerto a : grafo.getAdyacencia().keySet()) {
             int conexiones = grafo.obtenerAdyacentes(a).size();
             if (conexiones > max) {
                 max = conexiones;
@@ -116,7 +116,7 @@ public class AlgoritmosRuta {
     public static Aeropuerto menosConectado(Grafo grafo) {
         Aeropuerto peor = null;
         int min = Integer.MAX_VALUE;
-        for (Aeropuerto a : grafo.adyacencia.keySet()) {
+        for (Aeropuerto a : grafo.getAdyacencia().keySet()) {
             int conexiones = grafo.obtenerAdyacentes(a).size();
             if (conexiones < min) {
                 min = conexiones;
