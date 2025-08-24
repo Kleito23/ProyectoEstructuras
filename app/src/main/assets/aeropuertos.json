@@ -1,13 +1,5 @@
 [
   {
-    "codigo": "PKX",
-    "nombre": "Beijing Daxing International Airport",
-    "ciudad": "Beijing",
-    "pais": "China",
-    "latitud": 39.5098,
-    "longitud": 116.4109
-  },
-  {
     "codigo": "LHR",
     "nombre": "London Heathrow Airport",
     "ciudad": "Londres",
