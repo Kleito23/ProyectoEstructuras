@@ -46,7 +46,7 @@ public class Vuelo {
 
     @Override
     public String toString() {
-        return origen.getCodigo() + " -> " + destino.getCodigo() + 
+        return origen.getCode() + " -> " + destino.getCode() +
                " | Distancia: " + distancia + " km" + 
                " | Costo: $" + costo + 
                " | Tiempo: " + tiempo + " h";

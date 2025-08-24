@@ -10,14 +10,14 @@ import java.util.List;
 
 public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportViewHolder> {
 
-    private List<Airport> airports;
+    private List<Aeropuerto> airports;
     private OnAirportClickListener listener;
 
     public interface OnAirportClickListener {
-        void onAirportClick(Airport airport);
+        void onAirportClick(Aeropuerto airport);
     }
 
-    public AirportAdapter(List<Airport> airports, OnAirportClickListener listener) {
+    public AirportAdapter(List<Aeropuerto> airports, OnAirportClickListener listener) {
         this.airports = airports;
         this.listener = listener;
     }
@@ -32,7 +32,7 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportV
 
     @Override
     public void onBindViewHolder(@NonNull AirportViewHolder holder, int position) {
-        Airport airport = airports.get(position);
+        Aeropuerto airport = airports.get(position);
         holder.bind(airport);
     }
 
@@ -60,7 +60,7 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportV
             });
         }
 
-        public void bind(Airport airport) {
+        public void bind(Aeropuerto airport) {
             tvAirportName.setText(airport.getName());
             tvAirportCode.setText(airport.getCode());
             tvAirportLocation.setText(airport.getLocation());

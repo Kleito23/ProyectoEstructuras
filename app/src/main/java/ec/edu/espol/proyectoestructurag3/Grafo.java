@@ -33,14 +33,14 @@ public class Grafo {
 
     public boolean existeAeropuerto(String codigo) {
         for (Aeropuerto a : adyacencia.keySet()) {
-            if (a.getCodigo().equals(codigo)) return true;
+            if (a.getCode().equals(codigo)) return true;
         }
         return false;
     }
 
     public Aeropuerto buscarAeropuerto(String codigo) {
         for (Aeropuerto a : adyacencia.keySet()) {
-            if (a.getCodigo().equals(codigo)) return a;
+            if (a.getCode().equals(codigo)) return a;
         }
         return null;
     }
@@ -127,7 +127,7 @@ public class Grafo {
 
     List<Vuelo> vuelos = adyacencia.get(a);
     if (vuelos.isEmpty()) {
-        System.out.println("No hay vuelos disponibles desde " + a.getNombre());
+        System.out.println("No hay vuelos disponibles desde " + a.getName());
     }
 
     return vuelos;

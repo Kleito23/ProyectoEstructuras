@@ -1,65 +1,35 @@
 package ec.edu.espol.proyectoestructurag3;
 
-import java.util.Objects;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Milena Avellan
- */
-
-
 public class Aeropuerto {
-    private String codigo;   
-    private String nombre;   
-    private String pais;     
-    private double latitud; 
-    private double longitud; 
+    private String name;
+    private String code;
+    private String city;
+    private String country;
+    private double latitude;
+    private double longitude;
 
-    public Aeropuerto(String codigo, String nombre, String pais, double latitud, double longitud) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.pais = pais;
-        this.latitud = latitud;
-        this.longitud = longitud;
+    public Aeropuerto(String name, String code, String city, String country, double latitude, double longitude) {
+        this.name = name;
+        this.code = code;
+        this.city = city;
+        this.country = country;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    
-    public String getCodigo() { 
-        return codigo; 
-    }
-    public String getNombre() { 
-        return nombre; 
-    }
-    public String getPais() { 
-        return pais; 
-    }
-    public double getLatitud() { 
-        return latitud; 
-    }
-    public double getLongitud() { 
-        return longitud; 
+    public String getName() { return name; }
+    public String getCode() { return code; }
+    public String getCity() { return city; }
+    public String getCountry() { return country; }
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
+
+    public String getLocation() {
+        return city + ", " + country;
     }
 
     @Override
     public String toString() {
-        return codigo + " - " + nombre + " (" + pais + ") [" + latitud + ", " + longitud + "]";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Aeropuerto)) return false;
-        Aeropuerto otro = (Aeropuerto) obj;
-        return Objects.equals(this.codigo, otro.codigo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codigo);
+        return name + " (" + code + ")";
     }
 }
-

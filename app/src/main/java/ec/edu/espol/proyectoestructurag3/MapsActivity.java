@@ -24,7 +24,6 @@ import org.maplibre.android.annotations.MarkerOptions;
 import org.maplibre.android.annotations.Marker;
 import org.maplibre.android.annotations.PolylineOptions;
 import org.maplibre.android.annotations.Polyline;
-import org.maplibre.android.annotations.InfoWindow;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,12 +41,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapView mapView;
     private MapLibreMap mapLibreMap;
     private FloatingActionButton fabAirports;
-    private List<Airport> selectedAirports;
-    private List<Airport> availableAirports;
+    private List<Aeropuerto> selectedAirports;
+    private List<Aeropuerto> availableAirports;
 
     // Mapas para relacionar marcadores con aeropuertos
-    private Map<Marker, Airport> markerToAirport;
-    private Map<Airport, Marker> airportToMarker;
+    private Map<Marker, Aeropuerto> markerToAirport;
+    private Map<Aeropuerto, Marker> airportToMarker;
     private List<Polyline> flightConnections;
     private Map<Polyline, Marker> polylineToSourceMarker;
     private Map<Polyline, Marker> polylineToDestMarker;
@@ -140,8 +139,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     // Cargar aeropuertos desde el archivo JSON
-    private List<Airport> loadAirportsFromJson() {
-        List<Airport> airports = new ArrayList<>();
+    private List<Aeropuerto> loadAirportsFromJson() {
+        List<Aeropuerto> airports = new ArrayList<>();
         try {
             InputStream inputStream = getAssets().open("aeropuertos.json");
             int size = inputStream.available();
@@ -162,7 +161,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double latitud = jsonObject.getDouble("latitud");
                 double longitud = jsonObject.getDouble("longitud");
 
-                airports.add(new Airport(nombre, codigo, ciudad, pais, latitud, longitud));
+                airports.add(new Aeropuerto(nombre, codigo, ciudad, pais, latitud, longitud));
             }
 
             Log.d(TAG, "Cargados " + airports.size() + " aeropuertos desde JSON");
@@ -170,8 +169,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } catch (IOException | org.json.JSONException e) {
             Log.e(TAG, "Error cargando aeropuertos desde JSON: ", e);
             // Fallback: crear lista básica en caso de error
-            airports.add(new Airport("Sydney Kingsford Smith Airport", "SYD", "Sydney", "Australia", -33.9399, 151.1753));
-            airports.add(new Airport("Melbourne Airport", "MEL", "Melbourne", "Australia", -37.6690, 144.8410));
+            airports.add(new Aeropuerto("Sydney Kingsford Smith Airport", "SYD", "Sydney", "Australia", -33.9399, 151.1753));
+            airports.add(new Aeropuerto("Melbourne Airport", "MEL", "Melbourne", "Australia", -37.6690, 144.8410));
         }
 
         return airports;
@@ -201,7 +200,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     // Callback cuando se selecciona un aeropuerto
-    private void onAirportSelected(Airport airport) {
+    private void onAirportSelected(Aeropuerto airport) {
         if (!selectedAirports.contains(airport)) {
             selectedAirports.add(airport);
             addAirportMarker(airport);
@@ -211,7 +210,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     // Agregar marcador de aeropuerto al mapa
-    private void addAirportMarker(Airport airport) {
+    private void addAirportMarker(Aeropuerto airport) {
         if (mapLibreMap != null) {
             Marker marker = mapLibreMap.addMarker(new MarkerOptions()
                     .position(new LatLng(airport.getLatitude(), airport.getLongitude()))
@@ -237,7 +236,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             boundsBuilder.include(new LatLng(LAT_INICIAL, LNG_INICIAL));
 
             // Incluir todos los aeropuertos seleccionados
-            for (Airport airport : selectedAirports) {
+            for (Aeropuerto airport : selectedAirports) {
                 boundsBuilder.include(new LatLng(airport.getLatitude(), airport.getLongitude()));
             }
 
@@ -293,7 +292,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // Eliminar aeropuerto del mapa (pero NO de la lista disponible)
     private void deleteAirportFromMap(Marker marker) {
-        Airport airport = markerToAirport.get(marker);
+        Aeropuerto airport = markerToAirport.get(marker);
         if (airport != null && !marker.equals(initialMarker)) {
             // Remover SOLO de la lista de aeropuertos seleccionados
             // NO eliminamos de availableAirports para que siga disponible para agregar
@@ -346,7 +345,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         // Agregar otros aeropuertos en el mapa (excepto el origen)
-        for (Map.Entry<Marker, Airport> entry : markerToAirport.entrySet()) {
+        for (Map.Entry<Marker, Aeropuerto> entry : markerToAirport.entrySet()) {
             if (!entry.getKey().equals(sourceMarker)) {
                 availableDestinations.add(entry.getKey());
             }
@@ -372,14 +371,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         AlertDialog dialog = builder.create();
 
         // Crear lista de aeropuertos para el adaptador
-        List<Airport> destinationAirports = new ArrayList<>();
+        List<Aeropuerto> destinationAirports = new ArrayList<>();
         for (Marker marker : destinations) {
             if (marker.equals(initialMarker)) {
                 // Crear un Airport temporal para el marcador inicial
-                Airport initialAirport = new Airport("Beijing Daxing International Airport", "PKX", "Beijing", "China", LAT_INICIAL, LNG_INICIAL);
+                Aeropuerto initialAirport = new Aeropuerto("Beijing Daxing International Airport", "PKX", "Beijing", "China", LAT_INICIAL, LNG_INICIAL);
                 destinationAirports.add(initialAirport);
             } else {
-                Airport airport = markerToAirport.get(marker);
+                Aeropuerto airport = markerToAirport.get(marker);
                 if (airport != null) {
                     destinationAirports.add(airport);
                 }
