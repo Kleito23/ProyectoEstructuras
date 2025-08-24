@@ -22,12 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoEstructuraG3">
 
-        <!-- API Key de Google Maps -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDwot94RRkOaRhc4e3LhBX4sgCJDgLwNUY"/>
-
-        <!-- Actividad principal -->
         <activity
             android:name=".MapsActivity"
             android:exported="true">
@@ -36,6 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".EstadisticaActivity"
+            android:exported="false" />
 
     </application>
 
