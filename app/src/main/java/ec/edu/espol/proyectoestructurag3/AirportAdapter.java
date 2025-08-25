@@ -17,6 +17,10 @@ public class AirportAdapter extends RecyclerView.Adapter<AirportAdapter.AirportV
         void onAirportClick(Aeropuerto airport);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Aeropuerto aeropuerto);
+    }
+
     public AirportAdapter(List<Aeropuerto> airports, OnAirportClickListener listener) {
         this.airports = airports;
         this.listener = listener;

@@ -12,44 +12,29 @@ public class Vuelo {
     private int id;
     private Aeropuerto origen;
     private Aeropuerto destino;
-    private double distancia; 
-    private double costo;     
-    private double tiempo;    
+    private double distancia;      // distancia en km
+    Aerolinea aerolinea;
 
-    public Vuelo(int id,Aeropuerto origen, Aeropuerto destino, double distancia, double costo, double tiempo) {
-        this.id=id;
+    public Vuelo(int id, Aeropuerto origen, Aeropuerto destino, double distancia, Aerolinea aerolinea) {
+        this.id = id;
         this.origen = origen;
         this.destino = destino;
         this.distancia = distancia;
-        this.costo = costo;
-        this.tiempo = tiempo;
-    }
-    public int getId(){
-        return id;
+        this.aerolinea = aerolinea;
     }
 
-    public Aeropuerto getOrigen() { 
-        return origen; 
-    }
-    public Aeropuerto getDestino() { 
-        return destino; 
-    }
-    public double getDistancia() { 
-        return distancia; 
-    }
-    public double getCosto() { 
-        return costo; 
-    }
-    public double getTiempo() { 
-        return tiempo; 
-    }
+    public int getId() { return id; }
+    public Aeropuerto getOrigen() { return origen; }
+    public Aeropuerto getDestino() { return destino; }
+    public Aerolinea getAerolinea() { return aerolinea; }
+    public double getDistancia() { return distancia; }
+
+    public double getCosto() { return aerolinea.getCostoPromedio(); }
+    public double getTiempo() { return aerolinea.getTiempoPromedio(); }
 
     @Override
     public String toString() {
-        return origen.getCode() + " -> " + destino.getCode() +
-               " | Distancia: " + distancia + " km" + 
-               " | Costo: $" + costo + 
-               " | Tiempo: " + tiempo + " h";
+        return origen.getCode() + " → " + destino.getCode() + " (" + aerolinea + ")";
     }
 }
 

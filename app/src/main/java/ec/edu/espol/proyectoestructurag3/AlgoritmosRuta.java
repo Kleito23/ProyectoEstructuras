@@ -127,5 +127,19 @@ public class AlgoritmosRuta {
         }
         return peor;
     }
+
+    public static List<Vuelo> vuelosDeAerolinea(Grafo grafo, Aerolinea aerolinea) {
+        List<Vuelo> vuelos = new ArrayList<>();
+        for (List<Vuelo> listaVuelos : grafo.getAdyacencia().values()) {
+            for (Vuelo v : listaVuelos) {
+                if (v.getAerolinea().equals(aerolinea)) {
+                    vuelos.add(v);
+                }
+            }
+        }
+        return vuelos;
+    }
+
+
 }
 

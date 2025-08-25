@@ -13,6 +13,7 @@ import java.util.*;
 
 
 public class Grafo {
+    private static Grafo instance;   // Singleton
     private Map<Aeropuerto, List<Vuelo>> adyacencia;
 
     public Grafo() {
@@ -36,6 +37,13 @@ public class Grafo {
             if (a.getCode().equals(codigo)) return true;
         }
         return false;
+    }
+
+    public static Grafo getInstance() {
+        if (instance == null) {
+            instance = new Grafo();
+        }
+        return instance;
     }
 
     public Aeropuerto buscarAeropuerto(String codigo) {
@@ -68,22 +76,28 @@ public class Grafo {
 
     // VUELOS
 
-    public boolean agregarVuelo(int id, Aeropuerto origen, Aeropuerto destino, double distancia, double costo, double tiempo) {
-    if (!adyacencia.containsKey(origen) || !adyacencia.containsKey(destino)) {
-        System.out.println("Error: uno o ambos aeropuertos no son válidos");
-        return false;
-    }
-    for (Vuelo v : adyacencia.get(origen)) {
-        if (v.getId() == id) {
-            System.out.println("Error: ya existe un vuelo con ese ID");
+    public boolean agregarVuelo(Vuelo vuelo) {
+        Aeropuerto origen = vuelo.getOrigen();
+        Aeropuerto destino = vuelo.getDestino();
+
+        // Verificar que ambos aeropuertos existen en el grafo
+        if (!adyacencia.containsKey(origen) || !adyacencia.containsKey(destino)) {
+            System.out.println("Error: uno o ambos aeropuertos no son válidos");
             return false;
         }
-    }
 
-    Vuelo vuelo = new Vuelo(id, origen, destino, distancia, costo, tiempo);
-    adyacencia.get(origen).add(vuelo);
-    return true;
-}
+        // Verificar que no exista un vuelo con el mismo ID desde este origen
+        for (Vuelo v : adyacencia.get(origen)) {
+            if (v.getId() == vuelo.getId()) {
+                System.out.println("Error: ya existe un vuelo con ese ID");
+                return false;
+            }
+        }
+
+        // Agregar el vuelo
+        adyacencia.get(origen).add(vuelo);
+        return true;
+    }
     
 
 
@@ -132,6 +146,10 @@ public class Grafo {
 
     return vuelos;
 }
+
+    public List<Aeropuerto> getAeropuertosLista() {
+        return new ArrayList<>(adyacencia.keySet());
+    }
 
 
     @Override
