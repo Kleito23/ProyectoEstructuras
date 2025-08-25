@@ -1,6 +1,7 @@
 package ec.edu.espol.proyectoestructurag3;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.maplibre.android.MapLibre;
 import org.maplibre.android.geometry.LatLng;
@@ -89,6 +91,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             // Configurar botón flotante
             fabAirports.setOnClickListener(v -> showAirportsDialog());
+
+            // Configurar navegación inferior
+            BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+            bottomNavigation.setSelectedItemId(R.id.nav_flights);
+
+            bottomNavigation.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_flights) {
+                    return true; // Ya estamos aquí
+                } else if (itemId == R.id.nav_statistics) {
+                    startActivity(new Intent(this, EstadisticaActivity.class));
+                    finish();
+                    return true;
+                }
+                return false;
+            });
 
         } catch (Exception e) {
             Log.e(TAG, "Error en onCreate: ", e);
