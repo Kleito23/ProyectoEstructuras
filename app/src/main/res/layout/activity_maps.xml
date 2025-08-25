@@ -10,7 +10,7 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation" />
+        android:layout_above="@+id/layout_buttons" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAirports"
@@ -22,6 +22,39 @@
         android:src="@android:drawable/ic_menu_add"
         android:contentDescription="Agregar aeropuertos"
         android:backgroundTint="@color/design_default_color_primary" />
+
+    <!-- Botones de control horizontal arriba de la navbar -->
+    <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="12dp"
+        android:background="@android:color/white">
+
+        <Button
+            android:id="@+id/btnDijkstra"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="Ruta Más Corta"
+            android:textSize="12sp"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.Material3.Button" />
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="Reiniciar"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"
+            style="@style/Widget.Material3.Button.TextButton" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

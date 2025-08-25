@@ -32,4 +32,33 @@ public class Aeropuerto {
     public String toString() {
         return name + " (" + code + ")";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Aeropuerto other = (Aeropuerto) obj;
+        return code.equals(other.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
+
+    // Método para calcular distancia usando fórmula de Haversine
+    public double calcularDistancia(Aeropuerto destino) {
+        final int R = 6371; // Radio de la Tierra en km
+
+        double latDistance = Math.toRadians(destino.latitude - this.latitude);
+        double lonDistance = Math.toRadians(destino.longitude - this.longitude);
+
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(this.latitude)) * Math.cos(Math.toRadians(destino.latitude))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c; // Distancia en kilómetros
+    }
 }
